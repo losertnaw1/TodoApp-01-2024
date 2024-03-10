@@ -1,0 +1,24 @@
+.inputTask {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    min-width: 500px;
+}
+
+.input > input#name {
+    margin-bottom: 5px;
+    height: 30px;
+    border-radius: 5px
+}
+
+.input > input#description {
+    margin-bottom: 5px;
+    height: 50px;
+    border-radius: 5px;
+}
