@@ -1,34 +1,55 @@
-import { useTasks } from '../contexts/taskContext'
-import ListTasks from './ListTaskCom'
+import { useTasks } from '../contexts/TaskProvider'
+import ListTasks from './ListTask'
 import './tabs.css'
+import TaskConstants from '../constants/task.constants'
+
+const { ALL, TODO, DONE} = TaskConstants.taskStatus;
+const { UNCHECKED, CHECKED} = TaskConstants.tabStatus;
 
 const Tabs = () => {
-    const {tasks, currentTab, setCurrentTab} = useTasks();
+    const {tasks , currentTab, setCurrentTab} = useTasks();
+
+    const tabs = [
+      {
+        key: ALL,
+        text: 'All'
+      },
+      {
+        key: TODO,
+        text: 'Todo'
+      },
+      {
+        key: DONE,
+        text: 'Done'
+      },
+    ]
+
+    const doneTask = tasks.filter(task => task.checked);
+    const todoTask = tasks.filter(task => !task.checked);
   
     return (
       <div className='tabs'>
-        <button
-            onClick={() => {
-                setCurrentTab("all");
-            }}
-            className={currentTab === 'all' ? 'selected' : 'unselected'}
-        >All</button>
-        <button 
-            onClick={() => setCurrentTab('unchecked')}
-            className={currentTab === 'unchecked' ? 'selected' : 'unselected'}
-        >Todo</button>
-        <button
-            onClick={() => setCurrentTab('checked')}
-            className={currentTab === 'checked' ? 'selected' : 'unselected'}
-        >Done</button>
-  
-        {currentTab === 'all' ?
-        ( <ListTasks tasks={tasks} />) : currentTab === 'unchecked' ? (
-          <ListTasks tasks={tasks.filter(task => !task.checked)} />
-        ) : (
-          <ListTasks tasks={tasks.filter(task => task.checked)} />
-        )}
+        {
+        tabs.map(t => {
+          const { key, text } = t
+          return (
+            <button
+              key={key}
+              onClick={() => {
+                setCurrentTab(key);
+              }}
+              className={currentTab === key ? CHECKED : UNCHECKED}
+            >
+              {text}
+            </button>
+          )
+        })
+      }
+      {currentTab === ALL && <ListTasks tasks={tasks} />}
+      {currentTab === TODO && <ListTasks tasks={todoTask} />}
+      {currentTab === DONE && <ListTasks tasks={doneTask} />}
       </div>
+
     );
   }
 

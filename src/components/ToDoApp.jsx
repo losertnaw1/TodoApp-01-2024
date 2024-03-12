@@ -1,18 +1,13 @@
 import './inputTask.css'
-import InputTask from './InputTaskCom'
+import InputTask from './InputTask'
 import Tabs from './Tabs'
-import { TasksProvider } from '../contexts/taskContext' 
 
 function ToDoApp() {
   return (
     <>
-      <TasksProvider>
-        <div>
-          <h1>Todo App</h1>
-          <InputTask />
-          <Tabs />
-        </div>
-      </TasksProvider>
+      <h1>Todo App</h1>
+      <InputTask />
+      <Tabs />
       {/* Input Task Component */}
       {/* <div className="inputTask">
         <div className="input">
