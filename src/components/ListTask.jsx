@@ -1,30 +1,9 @@
 /* eslint-disable react/prop-types */
 import './listTask.css'
-import { useMemo } from 'react'
-import { useTasks } from '../contexts/TaskProvider'
 import Task from './Task';
 
 function ListTask({ tasks }) {
 
-  const { handlerToogleEditStatus, toggleEdit, updateTask, handleNameChange, handleDescriptionChange, handleDelete, taskEditingError, setTaskEditingError } = useTasks();
-
-  const taskComponents = useMemo(() => 
-  tasks.map(task => 
-    <Task
-      key={task.id}
-      task={task}
-      handleNameChange={handleNameChange}
-      handleDescriptionChange={handleDescriptionChange}
-      toggleEdit={toggleEdit}
-      handleDelete={handleDelete}
-      handlerToogleEditStatus={handlerToogleEditStatus}
-      taskEditingError={taskEditingError}
-      setTaskEditingError={setTaskEditingError}
-      updateTask={(updatedTask) => updateTask(task.id, updatedTask)}
-    />
-  ), 
-  [tasks, handlerToogleEditStatus, toggleEdit, updateTask, handleNameChange, handleDescriptionChange, handleDelete, taskEditingError, setTaskEditingError]
-);
     return (
       <div className="listTask">
         <table>
@@ -38,7 +17,12 @@ function ListTask({ tasks }) {
             </tr>
           </thead>
           <tbody>
-            {taskComponents}
+          {tasks.map(task => (
+            <Task
+              key={task.id}
+              task={task}
+            />
+          ))}
           </tbody>
         </table>
       </div>
